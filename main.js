@@ -6,18 +6,25 @@ let mainWindow
 
 const exec = require('child_process').exec
 
-
-function createWindow (stdout) {
+function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({resizable: true})
 
   mainWindow.maximize(true);
-  mainWindow.setTitle(stdout);
+ 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html');
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+
+  exec('kubectl config current-context', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`)
+      return
+    }
+    mainWindow.setTitle(stdout);
+  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -119,13 +126,7 @@ function createWindow (stdout) {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () =>{
-  exec('kubectl config current-context', (error, stdout, stderr) => {
-    if (error) {
-      console.error(`exec error: ${error}`)
-      return
-    }
-    createWindow(stdout);
-  })
+  createWindow();
 })
 
 // Quit when all windows are closed.

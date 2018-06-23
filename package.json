@@ -1,8 +1,11 @@
 {
   "name": "kube-admin",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "description": "A minimal Electron application",
   "main": "main.js",
+  "bin": {
+    "kube-admin": "./start.js"
+  },
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
