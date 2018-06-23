@@ -10,7 +10,6 @@
   },
   "build": {
     "appId": "com.dung95.kubeadmin",
-    "productName": "Kube Admin",
     "directories": {
       "output": "final"
     },
